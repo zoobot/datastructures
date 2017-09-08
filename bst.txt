@@ -1,0 +1,24 @@
+	
+The best solution I found is O(n) and it uses no extra space. It is similar to inorder traversal but instead of storing it to array and then checking whether it is sorted we can take a static variable and check while inorder traversing whether array is sorted.
+
+static struct node *prev = NULL;
+
+bool isBST(struct node* root)
+{
+    // traverse the tree in inorder fashion and keep track of prev node
+    if (root)
+    {
+        if (!isBST(root->left))
+          return false;
+
+        // Allows only distinct valued nodes
+        if (prev != NULL && root->data <= prev->data)
+          return false;
+
+        prev = root;
+
+        return isBST(root->right);
+    }
+
+    return true;
+}
